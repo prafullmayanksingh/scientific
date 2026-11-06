@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f2f8fc">
+    <meta name="description" content="A clean, keyboard-friendly scientific calculator for everyday calculations.">
+    <title>Orbit — Scientific Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="calculator.js" defer></script>
+    <script src="converter.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Orbit calculator home">
+          <span class="brand-mark" aria-hidden="true">o</span>
+          <span>orbit<span class="brand-period">.</span></span>
+        </a>
+        <div class="topbar-caption"><span class="status-dot"></span> SCIENTIFIC CALCULATOR</div>
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.6 8.6 0 0 1 8.6 3.8 8.6 8.6 0 1 0 20.2 15.4Z"></path></svg>
+        </button>
+      </header>
+
+      <nav class="workspace-tabs" role="tablist" aria-label="Choose a tool">
+        <button class="workspace-tab is-active" id="calculator-tab" type="button" role="tab" aria-selected="true" aria-controls="calculator-panel">Calculator</button>
+        <button class="workspace-tab" id="converter-tab" type="button" role="tab" aria-selected="false" aria-controls="converter-panel">Converter</button>
+      </nav>
+
+      <section class="calculator-layout" id="calculator-panel" role="tabpanel" aria-labelledby="calculator-tab">
+        <div class="calculator-card">
+          <div class="display">
+            <div class="display-meta">
+              <span class="mode-label">LIVE RESULT</span>
+              <button class="angle-toggle" type="button" aria-label="Toggle angle mode">DEG <span class="toggle-knob"></span> RAD</button>
+            </div>
+            <div id="expression" class="expression" aria-label="Expression" aria-live="polite"></div>
+            <div id="result" class="result" aria-live="polite">0</div>
+            <div id="display-message" class="display-message" aria-live="polite">Ready when you are</div>
+          </div>
+
+          <div class="keypad" aria-label="Calculator keys">
+            <button class="key key-function" data-value="sin(" aria-label="Sine">sin</button>
+            <button class="key key-function" data-value="cos(" aria-label="Cosine">cos</button>
+            <button class="key key-function" data-value="tan(" aria-label="Tangent">tan</button>
+            <button class="key key-function" data-value="log(" aria-label="Base 10 logarithm">log</button>
+            <button class="key key-function" data-value="ln(" aria-label="Natural logarithm">ln</button>
+
+            <button class="key key-function" data-value="asin(" aria-label="Inverse sine">sin<sup>−1</sup></button>
+            <button class="key key-function" data-value="acos(" aria-label="Inverse cosine">cos<sup>−1</sup></button>
+            <button class="key key-function" data-value="atan(" aria-label="Inverse tangent">tan<sup>−1</sup></button>
+            <button class="key key-function" data-value="sqrt(" aria-label="Square root">√</button>
+            <button class="key key-function" data-value="abs(" aria-label="Absolute value">|x|</button>
+
+            <button class="key key-function" data-value="(" aria-label="Open parenthesis">(</button>
+            <button class="key key-function" data-value=")" aria-label="Close parenthesis">)</button>
+            <button class="key key-function" data-value="pi" aria-label="Pi">π</button>
+            <button class="key key-function" data-value="e" aria-label="Euler's number">e</button>
+            <button class="key key-function" data-action="backspace" aria-label="Delete last character">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H20a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-6-7 6-7Z"></path><path d="m12 9 6 6m0-6-6 6"></path></svg>
+            </button>
+
+            <button class="key key-function" data-action="clear">AC</button>
+            <button class="key key-function" data-action="sign" aria-label="Change sign">±</button>
+            <button class="key key-function" data-value="%" aria-label="Modulo">mod</button>
+            <button class="key key-operator" data-value="^" aria-label="Power">x<sup>y</sup></button>
+            <button class="key key-operator" data-value="/" aria-label="Divide">÷</button>
+
+            <button class="key" data-value="7">7</button>
+            <button class="key" data-value="8">8</button>
+            <button class="key" data-value="9">9</button>
+            <button class="key key-operator" data-value="!" aria-label="Factorial">x!</button>
+            <button class="key key-operator" data-value="*" aria-label="Multiply">×</button>
+
+            <button class="key" data-value="4">4</button>
+            <button class="key" data-value="5">5</button>
+            <button class="key" data-value="6">6</button>
+            <button class="key key-operator" data-value="Ans">Ans</button>
+            <button class="key key-operator" data-value="-">−</button>
+
+            <button class="key" data-value="1">1</button>
+            <button class="key" data-value="2">2</button>
+            <button class="key" data-value="3">3</button>
+            <button class="key key-operator" data-value="." aria-label="Decimal point">.</button>
+            <button class="key key-operator" data-value="+">+</button>
+
+            <button class="key key-zero" data-value="0">0</button>
+            <button class="key" data-value="00">00</button>
+            <button class="key key-equals" data-action="equals" aria-label="Calculate">=</button>
+          </div>
+          <footer class="calculator-footer">
+            <span>Try your keyboard — <kbd>Enter</kbd> to calculate</span>
+            <span class="precision-label">15 DIGIT PRECISION</span>
+          </footer>
+        </div>
+
+        <aside class="history-card" aria-label="Calculation history">
+          <div class="history-heading">
+            <div>
+              <span class="section-eyebrow">YOUR WORKSPACE</span>
+              <h1>History<span class="brand-period">.</span></h1>
+            </div>
+            <button id="clear-history" class="clear-history" type="button" disabled>Clear</button>
+          </div>
+          <div id="history-list" class="history-list">
+            <div class="history-empty">
+              <span class="history-empty-icon" aria-hidden="true">↗</span>
+              <p>Your calculations<br>will show up here.</p>
+            </div>
+          </div>
+          <div class="history-note"><span class="note-icon">i</span> Click any result to use it again</div>
+        </aside>
+      </section>
+
+      <section class="converter-layout" id="converter-panel" role="tabpanel" aria-labelledby="converter-tab" hidden>
+        <nav class="converter-categories" aria-label="Conversion categories">
+          <span class="section-eyebrow">CONVERT</span>
+          <div class="category-list">
+            <button class="category-button is-active" type="button" data-category="currency"><span>＄</span>Currency</button>
+            <button class="category-button" type="button" data-category="length"><span>↔</span>Length</button>
+            <button class="category-button" type="button" data-category="mass"><span>◉</span>Mass</button>
+            <button class="category-button" type="button" data-category="time"><span>◷</span>Time</button>
+            <button class="category-button" type="button" data-category="area"><span>▧</span>Area</button>
+            <button class="category-button" type="button" data-category="discount"><span>%</span>Discount</button>
+            <button class="category-button" type="button" data-category="volume"><span>◫</span>Volume</button>
+            <button class="category-button" type="button" data-category="number"><span>01</span>Number system</button>
+            <button class="category-button" type="button" data-category="speed"><span>↗</span>Speed</button>
+            <button class="category-button" type="button" data-category="temperature"><span>°</span>Temperature</button>
+            <button class="category-button" type="button" data-category="bmi"><span>⌁</span>BMI</button>
+            <button class="category-button" type="button" data-category="gst"><span>₹</span>GST</button>
+          </div>
+        </nav>
+        <div class="converter-card">
+          <div class="converter-heading">
+            <div>
+              <span class="section-eyebrow">QUICK CONVERSION</span>
+              <h1 id="converter-title">Currency converter<span class="brand-period">.</span></h1>
+              <p id="converter-description">Convert between currencies with live reference exchange rates.</p>
+            </div>
+            <span class="converter-badge"><span class="status-dot"></span> <span id="converter-badge-text">LIVE RATES</span></span>
+          </div>
+          <div id="converter-form" class="converter-form"></div>
+          <div class="converter-result" aria-live="polite">
+            <span class="section-eyebrow">RESULT</span>
+            <output id="converter-result">Enter an amount to get started</output>
+            <p id="converter-message">Currency rates require an internet connection.</p>
+          </div>
+          <p class="converter-disclaimer" id="converter-disclaimer">Exchange rates are indicative reference rates and may differ from rates offered by financial providers.</p>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>MADE FOR THE CURIOUS</span>
+        <span class="footer-divider"></span>
+        <span>FUNCTIONS · CONSTANTS · CLARITY</span>
+        <span class="footer-divider"></span>
+        <span>DEVELOPED BY PRAFULL MAYANK SINGH</span>
+      </footer>
+    </main>
+  </body>
+</html>
